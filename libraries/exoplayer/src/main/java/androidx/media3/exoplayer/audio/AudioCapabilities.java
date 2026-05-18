@@ -48,6 +48,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.primitives.Ints;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -352,6 +353,19 @@ public final class AudioCapabilities {
   @Deprecated
   public boolean isPassthroughPlaybackSupported(Format format) {
     return isPassthroughPlaybackSupported(format, AudioAttributes.DEFAULT);
+  }
+
+  /**
+   * Returns a copy of the audio encodings that the device reports as supported.
+   *
+   * <p>Values are {@link android.media.AudioFormat} {@code ENCODING_*} constants.
+   */
+  public int[] getSupportedEncodings() {
+    int[] supportedEncodings = new int[encodingToAudioProfile.size()];
+    for (int i = 0; i < encodingToAudioProfile.size(); i++) {
+      supportedEncodings[i] = encodingToAudioProfile.keyAt(i);
+    }
+    return supportedEncodings;
   }
 
   /** Returns whether the device can do passthrough playback for {@code format}. */
